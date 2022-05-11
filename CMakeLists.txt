@@ -64,3 +64,8 @@ if (APPLE)
         PROPERTIES MACOSX_PACKAGE_LOCATION "Resources"
     )
 endif()
+
+# Windows boilerplate (ignored for other targets)
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    WIN32_EXECUTABLE TRUE
+)
