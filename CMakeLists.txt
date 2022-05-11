@@ -41,3 +41,26 @@ if (LINUX)
     target_link_libraries(mqproj PRIVATE Threads::Threads)
 endif()
 
+# MacOS boilerplate (ignored for other targets)
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    MACOSX_BUNDLE TRUE
+    MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_LIST_DIR}/macos/Info.plist.in"
+    MACOSX_BUNDLE_BUNDLE_NAME "${VER_PRODUCTNAME_STR}"
+    MACOSX_BUNDLE_BUNDLE_VERSION "${PROJECT_VERSION}"
+    MACOSX_BUNDLE_SHORT_VERSION_STRING "${PROJECT_VERSION}"
+    MACOSX_BUNDLE_LONG_VERSION_STRING "${PROJECT_VERSION}"
+    MACOSX_BUNDLE_GUI_IDENTIFIER "${VER_REVERSE_DOMAIN}"
+    MACOSX_BUNDLE_ICON_FILE "AppIcon.icns"
+    MACOSX_BUNDLE_COPYRIGHT "${VER_LEGALCOPYRIGHT_STR}"
+)
+
+if (APPLE)
+    target_sources(mqproj PRIVATE
+        "${CMAKE_CURRENT_LIST_DIR}/macos/AppIcon.icns"
+    )
+
+    set_source_files_properties(
+        "${CMAKE_CURRENT_LIST_DIR}/macos/AppIcon.icns"
+        PROPERTIES MACOSX_PACKAGE_LOCATION "Resources"
+    )
+endif()
